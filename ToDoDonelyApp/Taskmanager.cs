@@ -120,6 +120,27 @@ namespace ToDoDonelyApp
             }
         }
 
+        //Function to apply color based on project status
+        public static void ApplyStatusColor(string status)
+        {
+            if (status.Equals("Done", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;  // Green text for Done status
+            }
+            else if (status.Equals("Development Phase", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            else if (status.Equals("Planning Phase", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;  // Default color for other statuses
+            }
+        }
+
         // Menu in Show Tasks
         public static void DisplayMenu(List<Project> tasklist)
         {
@@ -261,10 +282,6 @@ namespace ToDoDonelyApp
             PlainTaskList(tasklist);
             Console.ResetColor();
         }
-        //static void TableColor()
-        //{
-        //    Console.BackgroundColor = ConsoleColor.DarkMagenta;
-        //}
 
         //Add function that counts listed Tasks in the tasklist, count Done Tasks as well
         public static void CountTasks(List<Project> tasklist, out int totalTasks, out int completedTasks)
@@ -275,27 +292,7 @@ namespace ToDoDonelyApp
                 task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
         }
 
-        //Function to apply color based on project status
-        public static void ApplyStatusColor(string status)
-        {
-            if (status.Equals("Done", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.ForegroundColor = ConsoleColor.Green;  // Green text for Done status
-            }
-            else if (status.Equals("Development Phase", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (status.Equals("Planning Phase", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Gray;  // Default color for other statuses
-            }
-        }
-
+        // Edit a Task/Project in the tasklist
         public static void EditTask(List<Project> tasklist)
         {
             Console.Clear();
@@ -321,6 +318,7 @@ namespace ToDoDonelyApp
                 MenuInterface.TableColor();
                 Console.ForegroundColor = ConsoleColor.Red; // Set text color to Red
                 Console.WriteLine("   Task not found.".PadRight(consoleWidth));
+                PlainTaskList(tasklist);
                 return;
             }
 
@@ -491,6 +489,7 @@ namespace ToDoDonelyApp
             }
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(new string('-', consoleWidth));
+            Console.BackgroundColor = ConsoleColor.Black;
         }
         public static void SaveTasks(List<Project> tasklist, string filePath)
         {

@@ -11,6 +11,7 @@ using ToDoDonelyApp;
 
 Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface.
 
+
 //// Generic list with Projects added for debugging and displaying
 //var tasklist = new List<Project>
 //{
@@ -41,11 +42,10 @@ bool firstRun = true; // Flag to track first execution
 
 while (!exit)
 {
-    ShowMainMenu(firstRun, tasklist); // Pass the flag to the function
     firstRun = false; // Set it to false after first execution
-    
-    string? userInput = Console.ReadLine()?.ToUpper();
+    ShowMainMenu(firstRun, tasklist); // Pass the flag to the function
     int consoleWidth = Console.WindowWidth;
+    string? userInput = Console.ReadLine()?.ToUpper();
     switch (userInput)
     {
         case "1": // Taskmanager - Show Tasks  
@@ -78,6 +78,7 @@ while (!exit)
             Taskmanager.PlainTaskList(tasklist);
             break;
     }
+
 
     //ShowMainMenu function 
 
@@ -130,8 +131,8 @@ while (!exit)
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine($") {options[i]}".PadRight(consoleWidth - 7));
         }
-
         Console.WriteLine(" ".PadRight(consoleWidth));
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ResetColor();
     }
 }
