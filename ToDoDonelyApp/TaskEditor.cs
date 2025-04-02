@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace ToDoDonelyApp
             Taskmanager.ApplyStatusColor(task.ProjectStatus);
 
             Console.WriteLine(
-                "   #" + task.ProjectIDnumber.ToString().PadRight(5) +
+            "   #" + task.ProjectIDnumber.ToString().PadRight(5) +
         (string.IsNullOrEmpty(task.ProjectName) ? "????" : task.ProjectName).PadRight(25) +
         (string.IsNullOrEmpty(task.TaskDescription) ? "????" : task.TaskDescription).PadRight(30) +
         (task.ProjectDate == default ? "????" : task.ProjectDate.ToString("yyyy-MM-dd")).PadRight(18) +
@@ -44,6 +45,7 @@ namespace ToDoDonelyApp
         //Add a Project/Task to the tasklist        
         public static void AddTask(List<Project> tasklist)
         {
+                   
             int consoleWidth = Console.WindowWidth;
             Console.Clear();
             MenuInterface.MenuHeader();
@@ -69,9 +71,7 @@ namespace ToDoDonelyApp
             Console.WriteLine($"   >> Project name set to {projectname} <<".PadRight(consoleWidth));
 
             // Temporary task displayed for the user's convenience 
-            var tempTask = new Project(projectname, string.Empty, DateTime.MinValue, DateTime.MinValue, string.Empty);
-            DisplaySingleTaskinEditor(tempTask);
-
+            DisplaySingleTaskinEditor(new Project(projectname, string.Empty, DateTime.MinValue, DateTime.MinValue, string.Empty));
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Enter Task Description or press [Enter] to skip: ".PadRight(consoleWidth -5));
@@ -92,8 +92,7 @@ namespace ToDoDonelyApp
             Console.WriteLine($"   >> Task '{taskdescription}' assigned to {projectname}. <<".PadRight(consoleWidth));
 
             // Temporary task displayed for the user's convenience 
-            var tempTask2 = new Project(projectname, taskdescription, DateTime.MinValue, DateTime.MinValue, string.Empty);
-            DisplaySingleTaskinEditor(tempTask2);
+            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, DateTime.MinValue, DateTime.MinValue, string.Empty));
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -125,8 +124,7 @@ namespace ToDoDonelyApp
             Console.WriteLine($"   >> Date {projectdate.ToString("yyyy-MM-dd")} assigned to {projectname}. <<".PadRight(consoleWidth));
 
             // Temporary task displayed for the user's convenience 
-            var tempTask3 = new Project(projectname, taskdescription, projectdate, DateTime.MinValue, string.Empty);
-            DisplaySingleTaskinEditor(tempTask3);
+            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, projectdate, DateTime.MinValue, string.Empty));
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -156,10 +154,9 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Green;
             //Text in Console
             Console.WriteLine($"   >> Due Date {projectduedate.ToString("yyyy-MM-dd")} assigned to {projectname}. <<".PadRight(consoleWidth));
-            
+
             // Temporary task displayed for the user's convenience 
-            var tempTask4 = new Project(projectname, taskdescription, projectdate, projectduedate, string.Empty);
-            DisplaySingleTaskinEditor(tempTask4);
+            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, projectdate, projectduedate, string.Empty));
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -195,8 +192,12 @@ namespace ToDoDonelyApp
                     break;
             }
 
+            // Create the project and assign ID
+            Project newProject = new Project(projectname, taskdescription, projectdate, projectduedate, projectstatus);
+            newProject.AssignID();
+
             //Adding Task to tasklist
-            tasklist.Add(new Project(projectname, taskdescription, projectdate, projectduedate, projectstatus));
+            tasklist.Add(newProject);
 
             //Confirm that the Task has been added
             Console.Clear();
