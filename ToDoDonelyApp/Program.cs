@@ -45,6 +45,8 @@ while (!exit)
     firstRun = false; // Set it to false after first execution
     ShowMainMenu(firstRun, tasklist); // Pass the flag to the function
     int consoleWidth = Console.WindowWidth;
+
+
     string? userInput = Console.ReadLine()?.ToUpper();
     switch (userInput)
     {
@@ -52,18 +54,16 @@ while (!exit)
             Taskmanager.ShowTasks(tasklist);
             break;
         case "2": // Add Tasks
-            Taskmanager.AddTask(tasklist);
+            TaskEditor.AddTask(tasklist);
             break;
         case "3": // Edit Tasks (update, mark as done, remove)
-            Taskmanager.EditTask(tasklist);
+            TaskEditor.EditTask(tasklist);
             break;
         case "4": // Save and Quit
-            // Temporary Code - Will be Added in the SaveTasks later
             Console.Clear();
             MenuInterface.MenuHeader();
-            Console.BackgroundColor = ConsoleColor.DarkMagenta;
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("   " + "Thank you for using the ToDoDonely App! Have a Nice Day!".PadRight(consoleWidth -3));
+            MenuInterface.Spacer();
+            Console.Write("Thank you for using the ToDoDonely App! Have a Nice Day! <<".PadRight(consoleWidth -5));
             MenuInterface.MenuHeader();
             Taskmanager.SaveTasks(tasklist, filePath);
             //
@@ -72,10 +72,15 @@ while (!exit)
         default:
             Console.Clear();
             MenuInterface.MenuHeader();
-            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.Red;
+            MenuInterface.Spacer();
+            //Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Invalid option! Please enter a number between 1 and 4.");
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("   Invalid option, Please enter a number between 1 and 4.".PadRight(consoleWidth));
-            Taskmanager.PlainTaskList(tasklist);
+            Console.WriteLine(" <<".PadRight(consoleWidth -59));
+            MenuInterface.TableColor();
+            //taskmanager.plaintasklist(tasklist);
             break;
     }
 
@@ -99,8 +104,9 @@ while (!exit)
             MenuInterface.Spacer();
             Console.WriteLine("Main Menu".PadRight(consoleWidth - 5));
         }
-            // This below runs in the loop all the time.
-            Taskmanager.CountTasks(tasklist, out int totalTasks, out int completedTasks);
+        
+        // This below runs in the loop all the time.
+        Taskmanager.CountTasks(tasklist, out int totalTasks, out int completedTasks);
         int doneTasks = tasklist.Count(task => task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
         int pendingTasks = totalTasks - doneTasks;
         //MenuInterface.MenuHeader();
@@ -132,8 +138,7 @@ while (!exit)
             Console.WriteLine($") {options[i]}".PadRight(consoleWidth - 7));
         }
         Console.WriteLine(" ".PadRight(consoleWidth));
-        Console.BackgroundColor = ConsoleColor.Black;
-        Console.ResetColor();
+        MenuInterface.PointToInput();
     }
 }
 

@@ -20,12 +20,16 @@ namespace ToDoDonelyApp
 
         public Project(string projectname, string taskdescription, DateTime projectdate, DateTime projectduedate, string projectstatus)
         {
-            ProjectIDnumber = nextID++; // Assign the next available ID and increment the counter
             ProjectName = projectname;
             TaskDescription = taskdescription;
             ProjectDate = projectdate;
             ProjectDueDate = projectduedate;
             ProjectStatus = projectstatus;
+            AssignID();
+        }
+        private void AssignID()
+        {
+            ProjectIDnumber = nextID++; // Assign the next available ID and increment the counter
         }
     }
 }
