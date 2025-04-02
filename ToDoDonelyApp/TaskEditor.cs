@@ -45,7 +45,6 @@ namespace ToDoDonelyApp
         //Add a Project/Task to the tasklist        
         public static void AddTask(List<Project> tasklist)
         {
-                   
             int consoleWidth = Console.WindowWidth;
             Console.Clear();
             MenuInterface.MenuHeader();
@@ -53,7 +52,7 @@ namespace ToDoDonelyApp
             Console.WriteLine("  >> Add a New Project & Task <<".PadRight(consoleWidth));
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Project Name or press [Enter] to skip: ".PadRight(consoleWidth -5));
+            Console.Write("Enter Project Name or press [Enter] to skip: ".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectname = Console.ReadLine();
@@ -62,101 +61,84 @@ namespace ToDoDonelyApp
                 projectname = "Unspecified";
             }
 
-            //Adding Task Description
+            // ** Changed: Create the project object once, without an ID yet **
+            Project newProject = new Project(projectname, string.Empty, DateTime.MinValue, DateTime.MinValue, string.Empty);
+
             Console.Clear();
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
-            Console.ForegroundColor = ConsoleColor.Green;
-            //Text in Console
             Console.WriteLine($"   >> Project name set to {projectname} <<".PadRight(consoleWidth));
+            DisplaySingleTaskinEditor(newProject);
 
-            // Temporary task displayed for the user's convenience 
-            DisplaySingleTaskinEditor(new Project(projectname, string.Empty, DateTime.MinValue, DateTime.MinValue, string.Empty));
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Task Description or press [Enter] to skip: ".PadRight(consoleWidth -5));
+            Console.Write("Enter Task Description or press [Enter] to skip: ".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? taskdescription = Console.ReadLine();
-            if (string.IsNullOrEmpty(taskdescription))
-            {
-                taskdescription = "Unspecified";
-            }
+            newProject.TaskDescription = string.IsNullOrEmpty(taskdescription) ? "Unspecified" : taskdescription;
 
-            // Assign a Date
             Console.Clear();
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
-            Console.ForegroundColor = ConsoleColor.Green;
-            //Text in Console
-            Console.WriteLine($"   >> Task '{taskdescription}' assigned to {projectname}. <<".PadRight(consoleWidth));
-
-            // Temporary task displayed for the user's convenience 
-            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, DateTime.MinValue, DateTime.MinValue, string.Empty));
+            Console.WriteLine($"   >> Task '{newProject.TaskDescription}' assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
+            DisplaySingleTaskinEditor(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Project Start Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth -5));
+            Console.Write("Enter Project Start Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectdateInput = Console.ReadLine()?.Trim();
-
-            DateTime projectdate;
-
             if (!string.IsNullOrEmpty(projectdateInput) && projectdateInput.Equals("T", StringComparison.OrdinalIgnoreCase))
             {
-                projectdate = DateTime.Today; // Assign today's date
+                newProject.ProjectDate = DateTime.Today;
             }
-            else if (!DateTime.TryParseExact(projectdateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out projectdate))
+            else if (!DateTime.TryParseExact(projectdateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectdate))
             {
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 Taskmanager.ErrorDate();
                 return;
             }
+            else
+            {
+                newProject.ProjectDate = projectdate;
+            }
 
-            // Assign a Due Date
             Console.Clear();
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
-            Console.ForegroundColor = ConsoleColor.Green;
-            //Text in Console
-            Console.WriteLine($"   >> Date {projectdate.ToString("yyyy-MM-dd")} assigned to {projectname}. <<".PadRight(consoleWidth));
-
-            // Temporary task displayed for the user's convenience 
-            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, projectdate, DateTime.MinValue, string.Empty));
+            Console.WriteLine($"   >> Date {newProject.ProjectDate:yyyy-MM-dd} assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
+            DisplaySingleTaskinEditor(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Project Due Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth -5));
+            Console.Write("Enter Project Due Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectduedateInput = Console.ReadLine()?.Trim();
-
-            DateTime projectduedate;
-
             if (!string.IsNullOrEmpty(projectduedateInput) && projectduedateInput.Equals("T", StringComparison.OrdinalIgnoreCase))
             {
-                projectduedate = DateTime.Today; // Assign today's date
+                newProject.ProjectDueDate = DateTime.Today;
             }
-            else if (!DateTime.TryParseExact(projectduedateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out projectduedate))
+            else if (!DateTime.TryParseExact(projectduedateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
             {
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 Taskmanager.ErrorDate();
                 return;
             }
+            else
+            {
+                newProject.ProjectDueDate = projectduedate;
+            }
 
-            // Assign Status to Task
             Console.Clear();
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
-            Console.ForegroundColor = ConsoleColor.Green;
-            //Text in Console
-            Console.WriteLine($"   >> Due Date {projectduedate.ToString("yyyy-MM-dd")} assigned to {projectname}. <<".PadRight(consoleWidth));
-
-            // Temporary task displayed for the user's convenience 
-            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, projectdate, projectduedate, string.Empty));
+            Console.WriteLine($"   >> Due Date {newProject.ProjectDueDate:yyyy-MM-dd} assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
+            DisplaySingleTaskinEditor(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -168,45 +150,30 @@ namespace ToDoDonelyApp
             MenuInterface.Spacer();
             Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
             MenuInterface.Spacer();
-            Console.WriteLine("4. Not Started".PadRight(consoleWidth -5));
+            Console.WriteLine("4. Not Started".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectstatus = Console.ReadLine()?.Trim();
-
-            switch (projectstatus)
+            newProject.ProjectStatus = projectstatus switch
             {
-                case "1":
-                    projectstatus = "Done";
-                    break;
-                case "2":
-                    projectstatus = "Development Phase";
-                    break;
-                case "3":
-                    projectstatus = "Planning Phase";
-                    break;
-                case "4":
-                    projectstatus = "Not Started";
-                    break;
-                default:
-                    projectstatus = "Unknown"; // Default if input is invalid or no input
-                    break;
-            }
+                "1" => "Done",
+                "2" => "Development Phase",
+                "3" => "Planning Phase",
+                "4" => "Not Started",
+                _ => "Unknown"
+            };
 
-            // Create the project and assign ID
-            Project newProject = new Project(projectname, taskdescription, projectdate, projectduedate, projectstatus);
+            // ** Changed: Assign ID only after adding to tasklist **
+            tasklist.Add(newProject);
             newProject.AssignID();
 
-            //Adding Task to tasklist
-            tasklist.Add(newProject);
-
-            //Confirm that the Task has been added
             Console.Clear();
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"   >> {taskdescription} Task added! Status: {projectstatus} <<".PadRight(consoleWidth));
-            Taskmanager.ApplyStatusColor(projectstatus);
-            DisplaySingleTaskinEditor(new Project(projectname, taskdescription, projectdate, projectduedate, projectstatus));
+            Console.WriteLine($"   >> {newProject.TaskDescription} Task added! Status: {newProject.ProjectStatus} <<".PadRight(consoleWidth));
+            Taskmanager.ApplyStatusColor(newProject.ProjectStatus);
+            DisplaySingleTaskinEditor(newProject);
             Console.ResetColor();
         }
 

@@ -24,11 +24,15 @@ namespace ToDoDonelyApp
             TaskDescription = taskdescription;
             ProjectDate = projectdate;
             ProjectDueDate = projectduedate;
-            ProjectStatus = projectstatus;;
+            ProjectStatus = projectstatus;
+            AssignID(); // Assign a unique ID to the added Project / Task.
         }
         public void AssignID()
         {
-            ProjectIDnumber = nextID++; // Assign the next available ID and increment the counter
+            if (ProjectIDnumber == 0)
+            {
+                ProjectIDnumber = nextID++; // Assign the next available ID and increment the counter
+            }
         }
     }
 }

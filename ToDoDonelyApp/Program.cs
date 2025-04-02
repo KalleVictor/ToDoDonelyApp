@@ -9,41 +9,19 @@ using System.Text;
 using System.Xml.Linq;
 using ToDoDonelyApp;
 
-Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface.
-
-
-//// Generic list with Projects added for debugging and displaying
-//var tasklist = new List<Project>
-//{
-//   new ("Project ToDoDonely App", "Devel App", new DateTime(2025, 3, 31), new DateTime(2025, 4, 4), "Development Phase"),
-//   new ("Mini Project 1", "Do not remember!", new DateTime(2025, 3, 10), new DateTime(2025, 3, 14), "Done"),
-//   new ("Mini Project 2", "Product-related Task", new DateTime(2025, 3, 18), new DateTime(2025, 3, 21), "Done"),
-//   new ("Mini Project 3", "Assetmanagement Task", new DateTime(2025, 3, 22), new DateTime(2025, 3, 28), "Done"),
-//   new ("Project ToDoDonely App", "Count Tasks Feature", new DateTime(2025, 04, 01), new DateTime(2025, 04, 01), "Done")
-//};
-
-//// Added items to the list for practice
-//var extratasks = new List<Project>
-//{
-//        new Project ("Project ToDoDonely App", "Add Tasks Feature", new DateTime(2025, 4, 1), new DateTime(2025, 04, 01), "Done"),
-//};
-//tasklist.AddRange(extratasks);
-
-//// Added additional items to the list
-//tasklist.Add(new Project("Project ToDoDonely App","Save & Exit Feature", new DateTime(2025, 04, 02), new DateTime(2025, 04, 04), "Planning Phase"));
+Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface.MenuHeader.
 
 const string filePath = "tasks.json";
-// Load tasklist from file
 var tasklist = Taskmanager.LoadTasks(filePath);
 
 bool exit = false;
-bool firstRun = true; // Flag to track first execution
+bool startup = true; // Flag to track if the program starts
 
 
 while (!exit)
 {
-    firstRun = false; // Set it to false after first execution
-    ShowMainMenu(firstRun, tasklist); // Pass the flag to the function
+    ShowMainMenu(startup, tasklist);
+    startup = false;
     int consoleWidth = Console.WindowWidth;
 
 
@@ -87,17 +65,18 @@ while (!exit)
 
     //ShowMainMenu function 
 
-    static void ShowMainMenu(bool isFirstRun, List<Project> tasklist)
+    static void ShowMainMenu(bool isStartUp, List<Project> tasklist)
     {
         int consoleWidth = Console.WindowWidth;
         MenuInterface.MenuHeader();
         MenuInterface.TableColor();
 
         //This part only runs once at start, Greeting Message!
-        if (isFirstRun) // Makes sure it runs only on the first execution
+        if (isStartUp) // Makes sure it runs only on the first execution
         {
             MenuInterface.Spacer();
-            Console.WriteLine("Welcome to ToDoDonely".PadRight(consoleWidth - 5));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Welcome to ToDoDonely!".PadRight(consoleWidth - 5));
         }
         else
         {   
