@@ -83,11 +83,6 @@ while (!exit)
             MenuInterface.Spacer();
             Console.WriteLine("Main Menu".PadRight(consoleWidth - 5));
         }
-        
-        // This below runs in the loop all the time.
-        //Taskmanager.CountTasks(tasklist, out int totalTasks, out int completedTasks);
-        //int doneTasks = tasklist.Count(task => task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
-        //int pendingTasks = totalTasks - doneTasks;
 
         MenuInterface.TableColor();
         MenuInterface.Spacer();

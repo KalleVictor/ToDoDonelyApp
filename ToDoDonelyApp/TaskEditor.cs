@@ -404,7 +404,7 @@ namespace ToDoDonelyApp
             MenuInterface.TableColor();
             Console.ForegroundColor = ConsoleColor.Green; // Set text color to white
             Taskmanager.ApplyStatusColor(task.ProjectStatus);
-            Console.WriteLine($"  >> ID#{task.ProjectIDnumber} - {task.ProjectName} updated successfully. <<".PadRight(consoleWidth));
+            Console.WriteLine($"  >> #{task.ProjectIDnumber} - {task.ProjectName} | {task.TaskDescription} updated successfully. <<".PadRight(consoleWidth));
             Console.ResetColor(); // Reset color to default
             DisplaySingleTask(task);
         }
