@@ -55,7 +55,7 @@ while (!exit)
             //Console.BackgroundColor = ConsoleColor.DarkMagenta;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Invalid option! Please enter a number between 1 and 4.");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(" <<".PadRight(consoleWidth -59));
             MenuInterface.TableColor();
             //taskmanager.plaintasklist(tasklist);
@@ -85,32 +85,28 @@ while (!exit)
         }
         
         // This below runs in the loop all the time.
-        Taskmanager.CountTasks(tasklist, out int totalTasks, out int completedTasks);
-        int doneTasks = tasklist.Count(task => task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
-        int pendingTasks = totalTasks - doneTasks;
-        //MenuInterface.MenuHeader();
-        MenuInterface.TableColor();
+        //Taskmanager.CountTasks(tasklist, out int totalTasks, out int completedTasks);
+        //int doneTasks = tasklist.Count(task => task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
+        //int pendingTasks = totalTasks - doneTasks;
 
+        MenuInterface.TableColor();
         MenuInterface.Spacer();
-        Console.WriteLine($"You have {pendingTasks} tasks to do and {completedTasks} tasks are done!".PadRight(consoleWidth - 5));
-        
+        MenuInterface.Counter(tasklist);
         MenuInterface.Spacer();
-        Console.WriteLine("Pick an option".PadRight(consoleWidth - 5));
+        MenuInterface.Options();
 
         string[] options =
         {
-            "Show Task List (by date or project)",
+            "Show Task List (by Date or Project)",
             "Add New Task",
-            "Edit Task (update, mark as done, remove)",
-            "Save and Quit"
+            "Edit Task (Update, Mark as Done, Remove)",
+            "Save & Quit"
         };
 
         for (int i = 0; i < options.Length; i++)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("  >>");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write(" (");
+            MenuInterface.Spacer();
+            Console.Write("(");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write(i + 1);
             Console.ForegroundColor = ConsoleColor.Gray;

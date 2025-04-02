@@ -10,7 +10,7 @@ namespace ToDoDonelyApp
     internal class TaskEditor
     {
         // Displaying the Task that is either being Edited or Added. 
-        private static void DisplaySingleTaskinEditor(Project task)
+        private static void DisplaySingleTask(Project task)
         {
             int consoleWidth = Console.WindowWidth;
             MenuInterface.TableColor();
@@ -68,7 +68,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.WriteLine($"   >> Project name set to {projectname} <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(newProject);
+            DisplaySingleTask(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -82,7 +82,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.WriteLine($"   >> Task '{newProject.TaskDescription}' assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(newProject);
+            DisplaySingleTask(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -110,7 +110,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.WriteLine($"   >> Date {newProject.ProjectDate:yyyy-MM-dd} assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(newProject);
+            DisplaySingleTask(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -138,7 +138,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.WriteLine($"   >> Due Date {newProject.ProjectDueDate:yyyy-MM-dd} assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(newProject);
+            DisplaySingleTask(newProject);
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
@@ -173,7 +173,7 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"   >> {newProject.TaskDescription} Task added! Status: {newProject.ProjectStatus} <<".PadRight(consoleWidth));
             Taskmanager.ApplyStatusColor(newProject.ProjectStatus);
-            DisplaySingleTaskinEditor(newProject);
+            DisplaySingleTask(newProject);
             Console.ResetColor();
         }
 
@@ -181,7 +181,7 @@ namespace ToDoDonelyApp
         public static void EditTask(List<Project> tasklist)
         {
             Console.Clear();
-            MenuInterface.TasklistHeader(">> Edit Task <<", ConsoleColor.White); // Provide title and color
+            MenuInterface.TasklistHeader("Edit Task", ConsoleColor.Green); // Provide title and color
             Taskmanager.DisplayTasks(tasklist, "Current Tasks");
             int consoleWidth = Console.WindowWidth;
             Console.WriteLine(new string('-', consoleWidth));
@@ -208,7 +208,7 @@ namespace ToDoDonelyApp
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
                 Console.ForegroundColor = ConsoleColor.Red; // Set text color to Red
-                Console.WriteLine("   Project not found.".PadRight(consoleWidth));
+                Console.WriteLine("   >> Project not found. <<".PadRight(consoleWidth));
                 return;
             }
 
@@ -216,7 +216,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Project: {task.ProjectName} selected. <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
 
             //Choose What to Do
@@ -245,7 +245,7 @@ namespace ToDoDonelyApp
                     Console.Write($"   >> Project: {task.ProjectName} || Task: {task.TaskDescription} || Removed. <<".PadRight(consoleWidth));
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
-                    DisplaySingleTaskinEditor(task);
+                    DisplaySingleTask(task);
                     break;
                 case "3":
                     task.ProjectStatus = "Done";
@@ -256,7 +256,7 @@ namespace ToDoDonelyApp
                     Console.Write($"   >> Project: {task.ProjectName} || Task: {task.TaskDescription} || has been marked as Done. <<".PadRight(consoleWidth));
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
-                    DisplaySingleTaskinEditor(task);
+                    DisplaySingleTask(task);
                     break;
                 default:
                     Console.Clear();
@@ -264,13 +264,12 @@ namespace ToDoDonelyApp
                     MenuInterface.TableColor();
                     Console.ForegroundColor = ConsoleColor.Red; // Set text color to Red
                     Console.WriteLine($"  >> Invalid option <<".PadRight(consoleWidth));
-                    DisplaySingleTaskinEditor(task);
+                    DisplaySingleTask(task);
                     break;
             }
         }
 
         // Edit a Task/Project in the tasklist
-
 
         private static void EditTaskDetails(Project task, List<Project> tasklist)
         {
@@ -279,7 +278,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Assign a new Project Name or press [Enter] to skip:".PadRight(consoleWidth -5));
@@ -295,7 +294,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Edit the Task Description or Press [Enter] to skip:".PadRight(consoleWidth -5));
@@ -311,7 +310,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Edit the start Date (yyyy-MM-dd) or press [Enter] to skip:".PadRight(consoleWidth - 5));
@@ -337,7 +336,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Edit Due Date (yyyy-MM-dd) or press [Enter] to skip:".PadRight(consoleWidth - 5));
@@ -365,7 +364,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.WriteLine("Select Status or (leave blank if Unknown):".PadRight(consoleWidth - 5));
@@ -407,7 +406,7 @@ namespace ToDoDonelyApp
             Taskmanager.ApplyStatusColor(task.ProjectStatus);
             Console.WriteLine($"  >> ID#{task.ProjectIDnumber} - {task.ProjectName} updated successfully. <<".PadRight(consoleWidth));
             Console.ResetColor(); // Reset color to default
-            DisplaySingleTaskinEditor(task);
+            DisplaySingleTask(task);
         }
 
     }
