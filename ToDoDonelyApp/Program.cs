@@ -9,7 +9,7 @@ using System.Text;
 using System.Xml.Linq;
 using ToDoDonelyApp;
 
-Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface.MenuHeader.
+Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface
 
 const string filePath = "tasks.json";
 var tasklist = Files.LoadTasks(filePath);
@@ -41,11 +41,10 @@ while (!exit)
             Console.Clear();
             Files.SaveTasks(tasklist, filePath);
             MenuInterface.MenuHeader();
-       
             MenuInterface.TableColor();
             MenuInterface.Goodbye();
             MenuInterface.MenuHeader();
-            exit = true; // Exit the loop
+            exit = true;
             break;
         default:
             Console.Clear();
@@ -57,7 +56,6 @@ while (!exit)
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(" <<".PadRight(consoleWidth -59));
             MenuInterface.TableColor();
-            //taskmanager.plaintasklist(tasklist);
             break;
     }
 }
