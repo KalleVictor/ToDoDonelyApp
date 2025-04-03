@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +27,7 @@ namespace ToDoDonelyApp
                 "Due Date".PadRight(18) +
                 "Status".PadRight(consoleWidth - 100)
             );
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(new string('-', consoleWidth));
             Taskmanager.ApplyStatusColor(task.ProjectStatus);
 
@@ -31,8 +35,8 @@ namespace ToDoDonelyApp
             "   #" + task.ProjectIDnumber.ToString().PadRight(5) +
         (string.IsNullOrEmpty(task.ProjectName) ? "????" : task.ProjectName).PadRight(25) +
         (string.IsNullOrEmpty(task.TaskDescription) ? "????" : task.TaskDescription).PadRight(30) +
-        (task.ProjectDate == default ? "????" : task.ProjectDate.ToString("yyyy-MM-dd")).PadRight(18) +
-        (task.ProjectDueDate == default ? "????" : task.ProjectDueDate.ToString("yyyy-MM-dd")).PadRight(18) +
+        (task.ProjectDate == default ? "????" : task.ProjectDate.ToString("dd MMMM yy", CultureInfo.InvariantCulture)).PadRight(18) +
+        (task.ProjectDueDate == default ? "????" : task.ProjectDueDate.ToString("dd MMMM yy", CultureInfo.InvariantCulture)).PadRight(18) +
         (string.IsNullOrEmpty(task.ProjectStatus) ? "????" : task.ProjectStatus).PadRight(consoleWidth - 100)
             );
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -86,11 +90,12 @@ namespace ToDoDonelyApp
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Project Start Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth - 5));
+            Console.Write("Enter Project Start Date (yyyy-MM-dd) or press [Enter] to assign today's date:".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectdateInput = Console.ReadLine()?.Trim();
-            if (!string.IsNullOrEmpty(projectdateInput) && projectdateInput.Equals("T", StringComparison.OrdinalIgnoreCase))
+
+            if (string.IsNullOrEmpty(projectdateInput))
             {
                 newProject.ProjectDate = DateTime.Today;
             }
@@ -114,13 +119,18 @@ namespace ToDoDonelyApp
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Project Due Date (yyyy-MM-dd) or press [T] to assign today's date:".PadRight(consoleWidth - 5));
+            Console.Write("Enter Project Due Date (yyyy-MM-dd) or press [Enter] to assign today's date, [T] for tomorrow's date:".PadRight(consoleWidth - 5));
             MenuInterface.PointToInput();
 
             string? projectduedateInput = Console.ReadLine()?.Trim();
-            if (!string.IsNullOrEmpty(projectduedateInput) && projectduedateInput.Equals("T", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(projectduedateInput))
             {
                 newProject.ProjectDueDate = DateTime.Today;
+            }
+            // Assign Tomorrow's Date
+            else if (projectduedateInput.Equals("T", StringComparison.OrdinalIgnoreCase)) 
+            {
+                newProject.ProjectDate = DateTime.Today.AddDays(1); 
             }
             else if (!DateTime.TryParseExact(projectduedateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
             {
@@ -139,31 +149,25 @@ namespace ToDoDonelyApp
             MenuInterface.TableColor();
             Console.WriteLine($"   >> Due Date {newProject.ProjectDueDate:yyyy-MM-dd} assigned to {newProject.ProjectName}. <<".PadRight(consoleWidth));
             DisplaySingleTask(newProject);
+            MenuInterface.AssignEditStatusMenu();
 
-            MenuInterface.MenuHeader();
-            MenuInterface.Spacer();
-            Console.WriteLine("Assign Status or press [Enter] to skip:".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("4. Not Started".PadRight(consoleWidth - 5));
-            MenuInterface.PointToInput();
-
+            // Assign/Edit Status to Project/Task
             string? projectstatus = Console.ReadLine()?.Trim();
-            newProject.ProjectStatus = projectstatus switch
+            if (string.IsNullOrEmpty(projectstatus))
             {
-                "1" => "Done",
-                "2" => "Development Phase",
-                "3" => "Planning Phase",
-                "4" => "Not Started",
-                _ => "Unknown"
-            };
+                newProject.ProjectStatus = "Unknown";
+            }
+            else
+                newProject.ProjectStatus = projectstatus switch
+                {
+                    "1" => "Done",
+                    "2" => "Development Phase",
+                    "3" => "Planning Phase",
+                    "4" => "Canceled",
+                    _ => projectstatus,
+                };
 
-            // ** Changed: Assign ID only after adding to tasklist **
+            //Assign ID only after adding to tasklist
             tasklist.Add(newProject);
             newProject.AssignID();
 
@@ -186,10 +190,6 @@ namespace ToDoDonelyApp
             int consoleWidth = Console.WindowWidth;
             Console.WriteLine(new string('-', consoleWidth));
             MenuInterface.MenuHeader();
-
-            Console.BackgroundColor = ConsoleColor.Black;
-
-
             //Select the ProjectID to Edit/Remove/Mark as Done
             MenuInterface.Spacer();
             Console.Write("Enter a Project ID to edit:".PadRight(consoleWidth - 5));
@@ -365,38 +365,24 @@ namespace ToDoDonelyApp
             MenuInterface.TableColor();
             Console.Write($"   >> Task Editor <<".PadRight(consoleWidth));
             DisplaySingleTask(task);
-            MenuInterface.MenuHeader();
-            MenuInterface.Spacer();
-            Console.WriteLine("Select Status or (leave blank if Unknown):".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer();
-            Console.WriteLine("4. Not Started".PadRight(consoleWidth - 5));
-            MenuInterface.PointToInput();
+            MenuInterface.AssignEditStatusMenu();
+
+            // Get User Input
 
             string? projectstatus = Console.ReadLine()?.Trim();
-            switch (projectstatus)
+            if (string.IsNullOrEmpty(projectstatus))
             {
-                case "1":
-                    projectstatus = "Done";
-                    break;
-                case "2":
-                    projectstatus = "Development Phase";
-                    break;
-                case "3":
-                    projectstatus = "Planning Phase";
-                    break;
-                case "4":
-                    projectstatus = "Not Started";
-                    break;
-                default:
-                    projectstatus = "Unknown"; // Default if input is invalid or no input
-                    break;
+                projectstatus = "Unknown";
             }
+            else
+                projectstatus = projectstatus switch
+                {
+                    "1" => "Done",
+                    "2" => "Development Phase",
+                    "3" => "Planning Phase",
+                    "4" => "Canceled",
+                    _ => projectstatus,
+                };
             task.ProjectStatus = projectstatus;
 
             Console.Clear();
@@ -408,6 +394,5 @@ namespace ToDoDonelyApp
             Console.ResetColor(); // Reset color to default
             DisplaySingleTask(task);
         }
-
     }
 }

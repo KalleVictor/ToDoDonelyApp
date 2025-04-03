@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ToDoDonelyApp;
 using System.IO;
 using System.Text.Json;
+using System.Globalization;
 namespace ToDoDonelyApp
 
 {
@@ -22,30 +23,41 @@ namespace ToDoDonelyApp
 
             while (!exit)
             {
+                Console.SetCursorPosition(0, 0);
                 Console.Clear();
+
+                MenuInterface.MenuHeader();
                 MenuInterface.TasklistHeader(sortTitle, titleColor);
+
                 DisplayTasks(tasklist, sortTitle);
+                Console.ForegroundColor = ConsoleColor.Gray;
+
                 DisplayMenu(tasklist);
                 MenuInterface.PointToInput();
 
                 string? userInput = Console.ReadLine();
                 switch (userInput)
-
-
                 {
                     case "1":
+                        Console.SetCursorPosition(0, 0);
+                        Console.Clear();
                         sortTitle = "Show Projects by Name";
                         titleColor = ConsoleColor.White;
                         break;
                     case "2":
+                        Console.SetCursorPosition(0, 0);
+                        Console.Clear();
                         sortTitle = "Show Tasks by Name";
                         titleColor = ConsoleColor.White;
                         break;
                     case "3":
+                        Console.SetCursorPosition(0, 0);
+                        Console.Clear();
                         sortTitle = "Show Tasks by Date";
                         titleColor = ConsoleColor.White;
                         break;
                     case "4":
+                        Console.SetCursorPosition(0, 0);
                         Console.Clear();
                         MenuInterface.MenuHeader();
                         Console.BackgroundColor = ConsoleColor.DarkMagenta;
@@ -84,31 +96,56 @@ namespace ToDoDonelyApp
                     "   #" + task.ProjectIDnumber.ToString().PadRight(5) +
                     task.ProjectName.PadRight(25) +
                     task.TaskDescription.PadRight(30) +
-                    task.ProjectDate.ToString("yyyy-MM-dd").PadRight(18) +
-                    task.ProjectDueDate.ToString("yyyy-MM-dd").PadRight(18) +
+                    task.ProjectDate.ToString("dd MMMM yy", CultureInfo.InvariantCulture).PadRight(18) +
+                    task.ProjectDueDate.ToString("dd MMMM yy", CultureInfo.InvariantCulture).PadRight(18) +
                     task.ProjectStatus.PadRight(consoleWidth - 100)
                 );
             }
         }
 
-        //Function to apply color based on project status
+        //Method to apply ForegroundColor on Rows Depending on Status
+
         public static void ApplyStatusColor(string status)
         {
-            if (status.Equals("Done", StringComparison.OrdinalIgnoreCase))
+            switch (status.ToLower())
             {
-                Console.ForegroundColor = ConsoleColor.Green;  // Green text for Done status
-            }
-            else if (status.Equals("Development Phase", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (status.Equals("Planning Phase", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Gray;  // Default color for other statuses
+                case "done":
+                case "completed":
+                    Console.ForegroundColor = ConsoleColor.Green;  
+                    break;
+
+                case "development phase":
+                case "in progress":
+                case "in process":
+                    Console.ForegroundColor = ConsoleColor.Blue;  
+                    break;
+
+                case "planning phase":
+                    Console.ForegroundColor = ConsoleColor.Red;  
+                    break;
+
+                case "on hold":
+                case "not started":
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;  
+                    break;
+
+                case "canceled":
+                    Console.ForegroundColor = ConsoleColor.DarkRed;  
+                    break;
+
+                case "review":
+                case "testing phase":
+                    Console.ForegroundColor = ConsoleColor.Cyan;  
+                    break;
+
+                case "deployed":
+                case "live":
+                    Console.ForegroundColor = ConsoleColor.Magenta;  
+                    break;
+
+                default:
+                    Console.ForegroundColor = ConsoleColor.Gray;  
+                    break;
             }
         }
 
@@ -122,9 +159,6 @@ namespace ToDoDonelyApp
 
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
-
-
-
             MenuInterface.Spacer();
             MenuInterface.Counter(tasklist);
             MenuInterface.Spacer();
@@ -160,7 +194,7 @@ namespace ToDoDonelyApp
             int consoleWidth = Console.WindowWidth;
             MenuInterface.TableColor();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("   >> Invalid date! Please enter the date in yyyy-MM-dd format or 'T' for Today. <<".PadRight(consoleWidth));
+            Console.WriteLine("   >> Invalid date! Returning to Main Menu. <<".PadRight(consoleWidth));
             Console.ResetColor();
         }
 

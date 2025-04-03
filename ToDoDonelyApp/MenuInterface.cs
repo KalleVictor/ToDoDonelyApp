@@ -14,7 +14,6 @@ namespace ToDoDonelyApp
         public static void MenuHeader()
         {
             int consoleWidth = Console.WindowWidth;
-
             TableColor();
 
             Console.WriteLine(" ".PadRight(consoleWidth));
@@ -28,16 +27,65 @@ namespace ToDoDonelyApp
             Console.ResetColor();
         }
 
+        //ShowMainMenu function 
+
+        public static void ShowMainMenu(bool isStartUp, List<Project> tasklist)
+        {
+            int consoleWidth = Console.WindowWidth;
+            MenuHeader();
+            TableColor();
+
+            //This part only runs once at start, Greeting Message!
+            if (isStartUp) // Makes sure it runs only on the first execution
+            {
+                Spacer();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Welcome to ToDoDonely!".PadRight(consoleWidth - 5));
+            }
+            else
+            {
+                Spacer(); 
+                Console.WriteLine("Main Menu".PadRight(consoleWidth - 5));
+            }
+
+            TableColor();
+            Spacer();
+            MenuInterface.Counter(tasklist);
+            MenuInterface.Spacer();
+            MenuInterface.Options();
+
+            string[] options =
+            {
+            "Show Task List (by Date or Project)",
+            "Add New Task",
+            "Edit Task (Update, Mark as Done, Remove)",
+            "Save & Quit"
+        };
+
+            for (int i = 0; i < options.Length; i++)
+            {
+                MenuInterface.Spacer();
+                Console.Write("(");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(i + 1);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($") {options[i]}".PadRight(consoleWidth - 7));
+            }
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            MenuInterface.PointToInput();
+        }
+
         // Header for Tasklist
         public static void TasklistHeader(string title, ConsoleColor titleColor)
         {
-            Console.Clear();
-            MenuInterface.MenuHeader();
-            // Dynamic title based on sorting type
-            MenuInterface.TableColor();
-            Console.ForegroundColor = titleColor;
             int consoleWidth = Console.WindowWidth;
+            //// Dynamic title based on sorting type
+            Console.ForegroundColor = titleColor;
+            TableColor();
             Console.WriteLine($"   >> {title} <<".PadRight(consoleWidth));
+
+            //Here comes the tableheader for the tasklist
+            TableColor();
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(" ".PadRight(consoleWidth));
             Console.WriteLine
@@ -101,6 +149,23 @@ namespace ToDoDonelyApp
             completedTasks = tasklist.Count(task =>
                 task.ProjectStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase) ||
                 task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
+        }
+
+        static public void AssignEditStatusMenu()
+        {
+            int consoleWidth = Console.WindowWidth;
+            MenuHeader();
+            Spacer();
+            Console.WriteLine("Assign a Status (or press [Enter] to skip and leave it 'Unknown')".PadRight(consoleWidth - 5));
+            Spacer();
+            Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
+            Spacer();
+            Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
+            Spacer();
+            Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
+            Spacer();
+            Console.WriteLine("4. Canceled".PadRight(consoleWidth - 5));
+            PointToInput();
         }
 
     }
