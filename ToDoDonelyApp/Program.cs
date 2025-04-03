@@ -12,7 +12,7 @@ using ToDoDonelyApp;
 Console.OutputEncoding = Encoding.UTF8; // Enabling Unicode output to be able to display circles in the MenuInterface.MenuHeader.
 
 const string filePath = "tasks.json";
-var tasklist = Taskmanager.LoadTasks(filePath);
+var tasklist = Files.LoadTasks(filePath);
 
 bool exit = false;
 bool startup = true; // Flag to track if the program starts
@@ -39,7 +39,7 @@ while (!exit)
             break;
         case "4": 
             Console.Clear();
-            Taskmanager.SaveTasks(tasklist, filePath);
+            Files.SaveTasks(tasklist, filePath);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
             Console.Write("Thank you for using the ToDoDonely App! Have a Nice Day! <<".PadRight(consoleWidth -5));

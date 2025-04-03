@@ -43,9 +43,6 @@ namespace ToDoDonelyApp
             Console.WriteLine(new string('-', consoleWidth));
             Console.BackgroundColor = ConsoleColor.Black;
         }
-
-
-
         //Add a Project/Task to the tasklist        
         public static void AddTask(List<Project> tasklist)
         {
@@ -94,21 +91,22 @@ namespace ToDoDonelyApp
             MenuInterface.PointToInput();
 
             string? projectdateInput = Console.ReadLine()?.Trim();
+            switch (projectdateInput)
+            {
+                case null or "":
+                    newProject.ProjectDate = DateTime.Today;
+                    break;
 
-            if (string.IsNullOrEmpty(projectdateInput))
-            {
-                newProject.ProjectDate = DateTime.Today;
-            }
-            else if (!DateTime.TryParseExact(projectdateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectdate))
-            {
-                Console.Clear();
-                MenuInterface.MenuHeader();
-                Taskmanager.ErrorDate();
-                return;
-            }
-            else
-            {
-                newProject.ProjectDate = projectdate;
+                default:
+                    if (!DateTime.TryParseExact(projectdateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectdate))
+                    {
+                        Console.Clear();
+                        MenuInterface.MenuHeader();
+                        Taskmanager.ErrorDate();
+                        return;
+                    }
+                    newProject.ProjectDate = projectdate;
+                    break;
             }
 
             Console.Clear();
@@ -123,25 +121,27 @@ namespace ToDoDonelyApp
             MenuInterface.PointToInput();
 
             string? projectduedateInput = Console.ReadLine()?.Trim();
-            if (string.IsNullOrEmpty(projectduedateInput))
+
+            switch (projectduedateInput?.ToUpper())
             {
-                newProject.ProjectDueDate = DateTime.Today;
-            }
-            // Assign Tomorrow's Date
-            else if (projectduedateInput.Equals("T", StringComparison.OrdinalIgnoreCase)) 
-            {
-                newProject.ProjectDate = DateTime.Today.AddDays(1); 
-            }
-            else if (!DateTime.TryParseExact(projectduedateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
-            {
-                Console.Clear();
-                MenuInterface.MenuHeader();
-                Taskmanager.ErrorDate();
-                return;
-            }
-            else
-            {
-                newProject.ProjectDueDate = projectduedate;
+                case null or "":
+                    newProject.ProjectDueDate = DateTime.Today;
+                    break;
+
+                case "T":
+                    newProject.ProjectDueDate = DateTime.Today.AddDays(1);
+                    break;
+
+                default:
+                    if (!DateTime.TryParseExact(projectduedateInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
+                    {
+                        Console.Clear();
+                        MenuInterface.MenuHeader();
+                        Taskmanager.ErrorDate();
+                        return;
+                    }
+                    newProject.ProjectDueDate = projectduedate;
+                    break;
             }
 
             Console.Clear();
@@ -270,7 +270,6 @@ namespace ToDoDonelyApp
         }
 
         // Edit a Task/Project in the tasklist
-
         private static void EditTaskDetails(Project task, List<Project> tasklist)
         {
             int consoleWidth = Console.WindowWidth;
