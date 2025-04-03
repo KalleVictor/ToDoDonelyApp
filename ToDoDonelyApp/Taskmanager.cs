@@ -23,9 +23,7 @@ namespace ToDoDonelyApp
 
             while (!exit)
             {
-                Console.SetCursorPosition(0, 0);
                 Console.Clear();
-
                 MenuInterface.MenuHeader();
                 MenuInterface.TasklistHeader(sortTitle, titleColor);
 
@@ -39,20 +37,14 @@ namespace ToDoDonelyApp
                 switch (userInput)
                 {
                     case "1":
-                        Console.SetCursorPosition(0, 0);
-                        Console.Clear();
                         sortTitle = "Show Projects by Name";
                         titleColor = ConsoleColor.White;
                         break;
                     case "2":
-                        Console.SetCursorPosition(0, 0);
-                        Console.Clear();
                         sortTitle = "Show Tasks by Name";
                         titleColor = ConsoleColor.White;
                         break;
                     case "3":
-                        Console.SetCursorPosition(0, 0);
-                        Console.Clear();
                         sortTitle = "Show Tasks by Date";
                         titleColor = ConsoleColor.White;
                         break;
