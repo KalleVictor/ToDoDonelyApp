@@ -78,7 +78,7 @@ namespace ToDoDonelyApp
         // Header for Tasklist
         public static void TasklistHeader(string title, ConsoleColor titleColor)
         {
-            //MenuHeader();
+            MenuHeader();
             int consoleWidth = Console.WindowWidth;
             //// Dynamic title based on sorting type
             Console.ForegroundColor = titleColor;

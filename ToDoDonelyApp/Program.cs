@@ -44,7 +44,6 @@ while (!exit)
             MenuInterface.Spacer();
             Console.Write("Thank you for using the ToDoDonely App! Have a Nice Day! <<".PadRight(consoleWidth -5));
             MenuInterface.MenuHeader();
-            //
             exit = true; // Exit the loop
             break;
         default:
