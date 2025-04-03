@@ -35,12 +35,13 @@ The application saves tasks to a JSON file named tasks.json. Ensure this file is
 
 **Code Structure**
 Main Program: Handles menu navigation and user interaction.
-Taskmanager.cs: Manages loading, displaying, and saving tasks.
+Taskmanager.cs: Manages loading, displaying.
 TaskEditor.cs: Handles adding and editing tasks.
 MenuInterface.cs: Provides the visual structure and formatting for the console UI.
+Files.cs: Handles the saving procedure. 
 
 **License**
-This project is licensed under the MIT License.
+????
 
 **Contact**
 KalleVictor over at GitHub
