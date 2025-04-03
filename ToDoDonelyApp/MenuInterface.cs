@@ -78,6 +78,7 @@ namespace ToDoDonelyApp
         // Header for Tasklist
         public static void TasklistHeader(string title, ConsoleColor titleColor)
         {
+            //MenuHeader();
             int consoleWidth = Console.WindowWidth;
             //// Dynamic title based on sorting type
             Console.ForegroundColor = titleColor;
@@ -99,6 +100,7 @@ namespace ToDoDonelyApp
             Console.WriteLine(new string('-', consoleWidth));
         }
 
+        //Indicate where the userinput is
         public static void PointToInput()
         {
             int consoleWidth = Console.WindowWidth;
@@ -111,6 +113,7 @@ namespace ToDoDonelyApp
             Console.BackgroundColor = ConsoleColor.DarkMagenta;
         }
 
+        // The "  >>" spacer used in the Project.
         public static void Spacer()
         {
             TableColor();
@@ -119,6 +122,7 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
+        //Localization for the Menus
         public static void Options()
         {
             int consoleWidth = Console.WindowWidth;
@@ -151,6 +155,7 @@ namespace ToDoDonelyApp
                 task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
         }
 
+        //Menu for the Add/Edit Phase in the TaskEditor
         static public void AssignEditStatusMenu()
         {
             int consoleWidth = Console.WindowWidth;

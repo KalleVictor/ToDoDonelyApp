@@ -11,6 +11,7 @@ using System.Globalization;
 namespace ToDoDonelyApp
 
 {
+    // Taskmanager - 
     public class Taskmanager
     {
         //Method for calling tasklists
@@ -24,7 +25,8 @@ namespace ToDoDonelyApp
             while (!exit)
             {
                 Console.Clear();
-                MenuInterface.MenuHeader();
+                Console.SetCursorPosition(0, 0);
+                //MenuInterface.MenuHeader();
                 MenuInterface.TasklistHeader(sortTitle, titleColor);
 
                 DisplayTasks(tasklist, sortTitle);
@@ -49,8 +51,8 @@ namespace ToDoDonelyApp
                         titleColor = ConsoleColor.White;
                         break;
                     case "4":
-                        Console.SetCursorPosition(0, 0);
                         Console.Clear();
+                        Console.SetCursorPosition(0, 0);
                         MenuInterface.MenuHeader();
                         Console.BackgroundColor = ConsoleColor.DarkMagenta;
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -143,9 +145,6 @@ namespace ToDoDonelyApp
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine($") {options[i]}".PadRight(consoleWidth - 7));
             }
-
-            Console.WriteLine(" ".PadRight(consoleWidth));
-            Console.ResetColor();
         }
       
         //Error invalid Date
@@ -158,13 +157,14 @@ namespace ToDoDonelyApp
             Console.ResetColor();
         }
 
+        //Saving the tasklist
         public static void SaveTasks(List<Project> tasklist, string filePath)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(tasklist, options);
             File.WriteAllText(filePath, jsonString);
         }
-
+        //Loading the tasklist
         public static List<Project> LoadTasks(string filePath)
         {
             if (!File.Exists(filePath))
