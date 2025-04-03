@@ -41,8 +41,9 @@ while (!exit)
             Console.Clear();
             Files.SaveTasks(tasklist, filePath);
             MenuInterface.MenuHeader();
-            MenuInterface.Spacer();
-            Console.Write("Thank you for using the ToDoDonely App! Have a Nice Day! <<".PadRight(consoleWidth -5));
+       
+            MenuInterface.TableColor();
+            MenuInterface.Goodbye();
             MenuInterface.MenuHeader();
             exit = true; // Exit the loop
             break;

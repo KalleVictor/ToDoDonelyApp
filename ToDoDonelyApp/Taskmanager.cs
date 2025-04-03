@@ -20,7 +20,7 @@ namespace ToDoDonelyApp
             bool exit = false;
             int consoleWidth = Console.WindowWidth;
             string sortTitle = "Unsorted Tasks"; // Default title
-            ConsoleColor titleColor = ConsoleColor.White; // Default title color
+            ConsoleColor titleColor = ConsoleColor.Yellow;
 
             while (!exit)
             {
@@ -40,15 +40,15 @@ namespace ToDoDonelyApp
                 {
                     case "1":
                         sortTitle = "Show Projects by Name";
-                        titleColor = ConsoleColor.White;
+                        titleColor = ConsoleColor.Yellow;
                         break;
                     case "2":
                         sortTitle = "Show Tasks by Name";
-                        titleColor = ConsoleColor.White;
+                        titleColor = ConsoleColor.Green;
                         break;
                     case "3":
                         sortTitle = "Show Tasks by Date";
-                        titleColor = ConsoleColor.White;
+                        titleColor = ConsoleColor.Red;
                         break;
                     case "4":
                         Console.Clear();
@@ -95,16 +95,16 @@ namespace ToDoDonelyApp
             }
         }
 
-        //Method to apply ForegroundColor on Rows Depending on Status
+        //Method to apply DYNAMIC ForegroundColor on Rows Depending on Status
         public static void ApplyStatusColor(string status)
         {
             Console.ForegroundColor = status.ToLower() switch
             {
                 "done" or "completed" => ConsoleColor.Green,
                 "development phase" or "in progress" or "in process" => ConsoleColor.Blue,
-                "planning phase" => ConsoleColor.Red,
+                "planning phase" => ConsoleColor.Yellow,
                 "on hold" or "not started" => ConsoleColor.DarkYellow,
-                "canceled" => ConsoleColor.DarkRed,
+                "canceled" or "removed" => ConsoleColor.DarkRed,
                 "review" or "testing phase" => ConsoleColor.Cyan,
                 "deployed" or "live" => ConsoleColor.Magenta,
                 _ => ConsoleColor.Gray // Default color

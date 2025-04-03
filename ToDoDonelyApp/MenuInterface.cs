@@ -161,17 +161,41 @@ namespace ToDoDonelyApp
             int consoleWidth = Console.WindowWidth;
             MenuHeader();
             Spacer();
-            Console.WriteLine("Assign a Status (or press [Enter] to skip and leave it 'Unknown')".PadRight(consoleWidth - 5));
+            Console.WriteLine("Assign a Status or press [Enter] to skip and leave it 'Unknown'".PadRight(consoleWidth - 5));
             Spacer();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
             Spacer();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
             Spacer();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
             Spacer();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("4. Canceled".PadRight(consoleWidth - 5));
             PointToInput();
         }
 
+        static public void Goodbye()
+        {
+            int consoleWidth = Console.WindowWidth;
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("                      🔴".PadRight(consoleWidth));
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("            >> Your tasks have been saved! Long live the Tasks! <<".PadRight(consoleWidth));
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("                                  🟡 ".PadRight(consoleWidth));
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("        >> Thank you for using the ToDoDonely App! Have a Nice Day! <<".PadRight(consoleWidth));
+            Console.WriteLine(" ".PadRight(consoleWidth));
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("                         🟢  ".PadRight(consoleWidth));
+            Console.WriteLine(" ".PadRight(consoleWidth));
+        }
     }
 }
