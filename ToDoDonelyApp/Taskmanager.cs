@@ -13,7 +13,7 @@ namespace ToDoDonelyApp
 {
     public class Taskmanager
     {
-        
+        //Method for calling tasklists
         public static void ShowTasks(List<Project> tasklist)
         {
             bool exit = false;
@@ -64,9 +64,7 @@ namespace ToDoDonelyApp
             }
         }
 
-
-
-        // Display Tasks in a dynamic sorted tasklist, Default unsorted
+        //Method for displaying Tasks in a dynamic sorted tasklist, default unsorted
         public static void DisplayTasks(List<Project> tasklist, string sortBy)
         {
             
@@ -96,49 +94,19 @@ namespace ToDoDonelyApp
         }
 
         //Method to apply ForegroundColor on Rows Depending on Status
-
         public static void ApplyStatusColor(string status)
         {
-            switch (status.ToLower())
+            Console.ForegroundColor = status.ToLower() switch
             {
-                case "done":
-                case "completed":
-                    Console.ForegroundColor = ConsoleColor.Green;  
-                    break;
-
-                case "development phase":
-                case "in progress":
-                case "in process":
-                    Console.ForegroundColor = ConsoleColor.Blue;  
-                    break;
-
-                case "planning phase":
-                    Console.ForegroundColor = ConsoleColor.Red;  
-                    break;
-
-                case "on hold":
-                case "not started":
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;  
-                    break;
-
-                case "canceled":
-                    Console.ForegroundColor = ConsoleColor.DarkRed;  
-                    break;
-
-                case "review":
-                case "testing phase":
-                    Console.ForegroundColor = ConsoleColor.Cyan;  
-                    break;
-
-                case "deployed":
-                case "live":
-                    Console.ForegroundColor = ConsoleColor.Magenta;  
-                    break;
-
-                default:
-                    Console.ForegroundColor = ConsoleColor.Gray;  
-                    break;
-            }
+                "done" or "completed" => ConsoleColor.Green,
+                "development phase" or "in progress" or "in process" => ConsoleColor.Blue,
+                "planning phase" => ConsoleColor.Red,
+                "on hold" or "not started" => ConsoleColor.DarkYellow,
+                "canceled" => ConsoleColor.DarkRed,
+                "review" or "testing phase" => ConsoleColor.Cyan,
+                "deployed" or "live" => ConsoleColor.Magenta,
+                _ => ConsoleColor.Gray // Default color
+            };
         }
 
         // Menu after ShowTasks- displaying the tasklist
