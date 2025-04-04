@@ -51,10 +51,7 @@ while (!exit)
             MenuInterface.MenuHeader();
             Console.ForegroundColor = ConsoleColor.Red;
             MenuInterface.Spacer();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Invalid option! Please enter a number between 1 and 4.");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(" <<".PadRight(consoleWidth -59));
+            MenuInterface.InvalidInput();
             MenuInterface.TableColor();
             break;
     }

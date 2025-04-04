@@ -185,7 +185,7 @@ namespace ToDoDonelyApp
             Console.Write("                      🔴".PadRight(consoleWidth));
             Console.WriteLine(" ".PadRight(consoleWidth));
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("            >> Your tasks have been saved! Long live the Tasks! <<".PadRight(consoleWidth));
+            Console.Write("            >> Your Tasks have been saved! Long live the Tasks! <<".PadRight(consoleWidth));
             Console.WriteLine(" ".PadRight(consoleWidth));
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("                                  🟡 ".PadRight(consoleWidth));
@@ -196,6 +196,16 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("                         🟢  ".PadRight(consoleWidth));
             Console.WriteLine(" ".PadRight(consoleWidth));
+        }
+
+        static public void InvalidInput()
+        {
+            int consoleWidth = Console.WindowWidth;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Invalid option! Please enter a number between 1 and 4.");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" <<".PadRight(consoleWidth - 59));
+
         }
     }
 }
