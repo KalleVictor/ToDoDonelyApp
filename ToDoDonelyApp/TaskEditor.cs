@@ -135,16 +135,23 @@ namespace ToDoDonelyApp
                 default:
                     if (int.TryParse(projectduedateInput, out int daysToAdd))
                     {
+                        // If user enters a number, add it as days to today
                         newProject.ProjectDueDate = DateTime.Today.AddDays(daysToAdd);
                     }
-                    else if (!DateTime.TryParseExact(projectduedateInput, "yy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
+                    else if (DateTime.TryParseExact(projectduedateInput, "yy-MM-dd", null,
+                             System.Globalization.DateTimeStyles.None, out DateTime projectduedate))
                     {
+                        // If user enters a valid date in "yy-MM-dd" format
+                        newProject.ProjectDueDate = projectduedate;
+                    }
+                    else
+                    {
+                        // Handle invalid input
                         Console.Clear();
                         MenuInterface.MenuHeader();
                         Taskmanager.ErrorDate();
                         return;
                     }
-                    //newProject.ProjectDueDate = projectduedate;
                     break;
             }
 

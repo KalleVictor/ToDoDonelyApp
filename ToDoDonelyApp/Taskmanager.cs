@@ -20,6 +20,7 @@ namespace ToDoDonelyApp
             bool exit = false;
             int consoleWidth = Console.WindowWidth;
          
+
             string sortTitle = "Unsorted Tasks"; // Default title
             ConsoleColor titleColor = ConsoleColor.Yellow;
 
