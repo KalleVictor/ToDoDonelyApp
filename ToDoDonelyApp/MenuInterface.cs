@@ -163,16 +163,12 @@ namespace ToDoDonelyApp
             Spacer();
             Console.WriteLine("Assign a Status or press [Enter] to skip and leave it 'Unknown'".PadRight(consoleWidth - 5));
             Spacer();
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
             Spacer();
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
             Spacer();
-            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
             Spacer();
-            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("4. Canceled".PadRight(consoleWidth - 5));
             PointToInput();
         }

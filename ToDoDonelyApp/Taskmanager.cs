@@ -42,11 +42,11 @@ namespace ToDoDonelyApp
                         break;
                     case "2":
                         sortTitle = "Show Tasks by Name";
-                        titleColor = ConsoleColor.Green;
+                        titleColor = ConsoleColor.Yellow;
                         break;
                     case "3":
                         sortTitle = "Show Tasks by Date";
-                        titleColor = ConsoleColor.Blue;
+                        titleColor = ConsoleColor.Yellow;
                         break;
                     case "4":
                         Console.Clear();

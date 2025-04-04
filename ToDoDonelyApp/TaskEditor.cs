@@ -254,8 +254,11 @@ namespace ToDoDonelyApp
                     Console.Clear();
                     MenuInterface.MenuHeader();
                     MenuInterface.TableColor();
-                    Console.ForegroundColor = ConsoleColor.Red; // Set text color to Red
-                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} || Removed. <<".PadRight(consoleWidth));
+                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Removed");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine(" <<".PadRight(consoleWidth - 54));
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
                     DisplaySingleTask(task);
@@ -265,8 +268,11 @@ namespace ToDoDonelyApp
                     Console.Clear();
                     MenuInterface.MenuHeader();
                     MenuInterface.TableColor();
+                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | ");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} || Done. <<".PadRight(consoleWidth));
+                    Console.Write("Done");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine(" <<".PadRight(consoleWidth - 51));
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
                     DisplaySingleTask(task);
@@ -412,6 +418,7 @@ namespace ToDoDonelyApp
             MenuInterface.MenuHeader();
             MenuInterface.TableColor();
             Taskmanager.ApplyStatusColor(task.ProjectStatus);
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine($"  >> Task #{task.ProjectIDnumber} updated successfully. <<".PadRight(consoleWidth));
             Console.ResetColor(); // Reset color to default
             DisplaySingleTask(task);
