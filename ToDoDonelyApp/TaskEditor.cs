@@ -254,12 +254,7 @@ namespace ToDoDonelyApp
                     Console.Clear();
                     MenuInterface.MenuHeader();
                     MenuInterface.TableColor();
-                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | ");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("Removed");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine(" <<".PadRight(consoleWidth - 54));
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | Removed. <<".PadRight(consoleWidth));
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
                     DisplaySingleTask(task);
                     break;
@@ -268,11 +263,7 @@ namespace ToDoDonelyApp
                     Console.Clear();
                     MenuInterface.MenuHeader();
                     MenuInterface.TableColor();
-                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | ");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Done");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine(" <<".PadRight(consoleWidth - 51));
+                    Console.Write($"   >> Task #{task.ProjectIDnumber} || {task.TaskDescription} | Done. <<".PadRight(consoleWidth));
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Taskmanager.ApplyStatusColor(task.ProjectStatus);
                     DisplaySingleTask(task);

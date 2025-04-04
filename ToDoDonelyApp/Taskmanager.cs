@@ -53,7 +53,7 @@ namespace ToDoDonelyApp
                         Console.SetCursorPosition(0, 0);
                         MenuInterface.MenuHeader();
                         Console.BackgroundColor = ConsoleColor.DarkMagenta;
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("   >> Exited to Main Menu <<".PadRight(consoleWidth));
                         return;
                     default:
@@ -129,7 +129,7 @@ namespace ToDoDonelyApp
                 "Show Projects by Name",
                 "Show Tasks by Name",
                 "Show Tasks by Date",
-                "Exit to main menu"
+                "Exit to Main Menu"
             };
 
             for (int i = 0; i < options.Length; i++)
