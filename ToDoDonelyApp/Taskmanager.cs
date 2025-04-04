@@ -19,19 +19,16 @@ namespace ToDoDonelyApp
         {
             bool exit = false;
             int consoleWidth = Console.WindowWidth;
+         
             string sortTitle = "Unsorted Tasks"; // Default title
             ConsoleColor titleColor = ConsoleColor.Yellow;
 
             while (!exit)
             {
                 Console.Clear();
-                Console.SetCursorPosition(0, 0);
-                //MenuInterface.MenuHeader();
                 MenuInterface.TasklistHeader(sortTitle, titleColor);
-
                 DisplayTasks(tasklist, sortTitle);
                 Console.ForegroundColor = ConsoleColor.Gray;
-
                 DisplayMenu(tasklist);
                 MenuInterface.PointToInput();
 

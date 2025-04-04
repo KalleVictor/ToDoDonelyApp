@@ -17,7 +17,6 @@ var tasklist = Files.LoadTasks(filePath);
 bool exit = false;
 bool startup = true; // Flag to track if the program starts
 
-
 while (!exit)
 {
     MenuInterface.ShowMainMenu(startup, tasklist);
