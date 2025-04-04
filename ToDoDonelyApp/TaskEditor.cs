@@ -199,6 +199,7 @@ namespace ToDoDonelyApp
             MenuInterface.TasklistHeader("Edit Task", ConsoleColor.Gray); // Provide title and color
             Taskmanager.DisplayTasks(tasklist, "Current Tasks");
             int consoleWidth = Console.WindowWidth;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(new string('-', consoleWidth));
             MenuInterface.MenuHeader();
             //Select the Task/ProjectID to Edit/Remove/Mark as Done
