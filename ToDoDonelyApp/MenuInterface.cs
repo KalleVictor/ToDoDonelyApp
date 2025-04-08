@@ -135,6 +135,12 @@ namespace ToDoDonelyApp
             int doneTasks = tasklist.Count(task => task.ProjectStatus.Equals("Done", StringComparison.OrdinalIgnoreCase));
             int pendingTasks = totalTasks - doneTasks;
             int consoleWidth = Console.WindowWidth;
+
+            int pendingDigits = pendingTasks.ToString().Length;
+            int completedDigits = completedTasks.ToString().Length;
+
+            int padAdjustment = (pendingDigits - 1) + (completedDigits - 1);
+
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("You have ");
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -144,7 +150,7 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(completedTasks);
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine(" tasks are Done!".PadRight(consoleWidth - 32));
+            Console.WriteLine(" tasks are Done!".PadRight(consoleWidth - 32 - padAdjustment));
         }
 
         public static void CountTasks(List<Project> tasklist, out int totalTasks, out int completedTasks)
@@ -162,14 +168,14 @@ namespace ToDoDonelyApp
             MenuHeader();
             Spacer();
             Console.WriteLine("Assign a Status or press [Enter] to skip and leave it 'Unknown'".PadRight(consoleWidth - 5));
-            Spacer();
-            Console.WriteLine("1. Done".PadRight(consoleWidth - 5));
-            Spacer();
-            Console.WriteLine("2. Development Phase".PadRight(consoleWidth - 5));
-            Spacer();
-            Console.WriteLine("3. Planning Phase".PadRight(consoleWidth - 5));
-            Spacer();
-            Console.WriteLine("4. Canceled".PadRight(consoleWidth - 5));
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Colored1();
+            Console.WriteLine(") Done".PadRight(consoleWidth - 7));
+            Colored2();
+            Console.WriteLine(") Development Phase".PadRight(consoleWidth - 7));
+            Colored3();
+            Console.WriteLine(") Planning Phase".PadRight(consoleWidth - 7));
+            Exit();
             PointToInput();
         }
 
@@ -202,6 +208,58 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(" <<".PadRight(consoleWidth - 59));
 
+        }
+
+        static public void Colored1()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("  >>");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" (");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("1");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        static public void Colored2()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("  >>");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" (");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("2");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        static public void Colored3()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("  >>");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" (");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("3");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        static public void Colored4()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("  >>");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" (");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("4");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        static public void Exit()
+        {
+            int consoleWidth = Console.WindowWidth;
+            Colored4();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(") Exit to Main Menu".PadRight(consoleWidth - 7));
         }
     }
 }
