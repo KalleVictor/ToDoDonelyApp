@@ -12,72 +12,6 @@ namespace ToDoDonelyApp
 {
     internal class TaskEditor
     {
-        //public static void TaskEditorMenu(List<Project> tasklist)
-        //{
-        //    bool exit = false;
-        //    int consoleWidth = Console.WindowWidth;
-
-        //    while (!exit)
-        //    {
-        //        Console.Clear();
-        //        MenuInterface.MenuHeader();
-        //        MenuInterface.TableColor();
-        //        Console.ForegroundColor = ConsoleColor.Gray;
-        //        Console.WriteLine("   >> Task Editor <<".PadRight(consoleWidth));
-        //        MenuInterface.MenuHeader();
-        //        MenuInterface.TableColor();
-
-        //        string[] options =
-        //        {
-        //    "Add New Task",
-        //};
-
-        //        for (int i = 0; i < options.Length; i++)
-        //        {
-        //            Console.ForegroundColor = ConsoleColor.Cyan;
-        //            Console.Write("  >>");
-        //            Console.ForegroundColor = ConsoleColor.Gray;
-        //            Console.Write(" (");
-        //            Console.ForegroundColor = ConsoleColor.DarkCyan;
-        //            Console.Write(i + 1);
-        //            Console.ForegroundColor = ConsoleColor.Gray;
-        //            Console.WriteLine($") {options[i]}".PadRight(consoleWidth - 7));
-        //        }
-
-        //        // Option 4: Exit to Main Menu
-        //        MenuInterface.Exit();
-
-        //        MenuInterface.PointToInput();
-        //        string? userInput = Console.ReadLine();
-
-        //        switch (userInput)
-        //        {
-        //            case "1":
-        //                AddTask(tasklist); // AddTask method
-        //                break;
-        //            case "2":
-        //                EditTask(tasklist); // EditTask method
-        //                break;
-        //            case "3":
-        //                // Call add logic
-        //                break;
-        //            case "4":
-        //                Console.Clear();
-        //                Console.SetCursorPosition(0, 0);
-        //                MenuInterface.MenuHeader();
-        //                Console.BackgroundColor = ConsoleColor.DarkMagenta;
-        //                Console.ForegroundColor = ConsoleColor.Yellow;
-        //                Console.WriteLine("   >> Exited to Main Menu <<".PadRight(consoleWidth));
-        //                return;
-        //            default:
-        //                Console.ForegroundColor = ConsoleColor.Red;
-        //                Console.WriteLine("   >> Invalid option! Please select a valid number. <<");
-        //                Thread.Sleep(1500);
-        //                break;
-        //        }
-        //    }
-        //}
-        // Displaying the Task that is either being Edited or Added. 
         private static void DisplaySingleTask(Project task)
         {
             int consoleWidth = Console.WindowWidth;
@@ -176,7 +110,11 @@ namespace ToDoDonelyApp
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Enter Start Date (yy-MM-dd) or press [Enter] to assign today's date:".PadRight(consoleWidth - 5));
+            Console.Write("Enter Start Date (");
+            MenuInterface.Date();
+            Console.Write(") or press [");
+            MenuInterface.Enter();
+            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 48));
             MenuInterface.Exit();
             MenuInterface.PointToInput();
 
@@ -215,8 +153,23 @@ namespace ToDoDonelyApp
 
             MenuInterface.MenuHeader();
             MenuInterface.Spacer(); MenuInterface.Options();
-            MenuInterface.Spacer(); Console.Write("Enter Due Date (yy-MM-dd) or press [Enter] to assign today's date:".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer(); Console.WriteLine("[T] for tomorrow's date".PadRight(consoleWidth -5));
+            
+            MenuInterface.Spacer();
+            Console.Write("Enter Due Date (");
+            MenuInterface.Date(); 
+            Console.Write(") or press [");
+            MenuInterface.Enter();
+            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 46));
+            
+            MenuInterface.Spacer(); Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("T");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("] for tomorrow's date".PadRight(consoleWidth -7));
+
+
+
+
             MenuInterface.Spacer(); Console.WriteLine("Or simply enter the number of days the Task is due.".PadRight(consoleWidth -5));
             MenuInterface.Exit();
             MenuInterface.PointToInput();
@@ -487,10 +440,16 @@ namespace ToDoDonelyApp
             DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer();
-            Console.Write("Edit the Date Added (yy-MM-dd) or press [Enter] to skip:".PadRight(consoleWidth - 5));
+            Console.Write("Edit the Date Added (");
+            MenuInterface.Date();
+            Console.Write(") or press [");
+            MenuInterface.Enter();
+            Console.WriteLine("] to skip:".PadRight(consoleWidth - 51));
+
             MenuInterface.Exit();
             MenuInterface.PointToInput();
-          
+
+
             string? newProjectDateInput = Console.ReadLine();
             switch (newProjectDateInput)
             {
@@ -517,8 +476,17 @@ namespace ToDoDonelyApp
             DisplaySingleTask(task);
             MenuInterface.MenuHeader();
             MenuInterface.Spacer(); MenuInterface.Options();
-            MenuInterface.Spacer(); Console.Write("Enter Due Date (yy-MM-dd) or press [Enter] to kep current Due Date".PadRight(consoleWidth - 5));
-            MenuInterface.Spacer(); Console.WriteLine("[T] for tomorrow's date".PadRight(consoleWidth - 5));
+            MenuInterface.Spacer(); Console.Write("Enter Due Date (");
+            MenuInterface.Date();
+            Console.Write(") or press [");
+            MenuInterface.Enter();
+            Console.WriteLine("] to keep current Due Date".PadRight(consoleWidth - 46));
+            MenuInterface.Spacer(); 
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("T");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("] for tomorrow's date".PadRight(consoleWidth - 7));
             MenuInterface.Spacer(); Console.WriteLine("Or simply enter the number of days the Task is due".PadRight(consoleWidth - 5));
             MenuInterface.Exit();
             MenuInterface.PointToInput();

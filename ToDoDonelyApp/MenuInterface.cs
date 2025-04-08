@@ -261,5 +261,18 @@ namespace ToDoDonelyApp
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(") Exit to Main Menu".PadRight(consoleWidth - 7));
         }
+
+        public static void Date()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("yy-MM-dd");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        public static void Enter()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("Enter");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
     }
 }
