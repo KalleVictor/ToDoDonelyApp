@@ -265,7 +265,7 @@ namespace ToDoDonelyApp
         public static void Date()
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("yy-MM-dd");
+            Console.Write("yyyy-MM-dd");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
         public static void Enter()

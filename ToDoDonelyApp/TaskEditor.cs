@@ -120,7 +120,7 @@ namespace ToDoDonelyApp
             MenuInterface.Date();
             Console.Write(") or press [");
             MenuInterface.Enter();
-            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 48));
+            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 50));
             MenuInterface.Exit();
             MenuInterface.PointToInput();
 
@@ -168,7 +168,7 @@ namespace ToDoDonelyApp
             MenuInterface.Date(); 
             Console.Write(") or press [");
             MenuInterface.Enter();
-            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 46));
+            Console.WriteLine("] to assign today's date:".PadRight(consoleWidth - 48));
             
             MenuInterface.Spacer(); Console.Write("[");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -284,6 +284,7 @@ namespace ToDoDonelyApp
         // Edit a Task/Project in the tasklist
         public static void EditTask(List<Project> tasklist)
         {
+            Console.Write("\x1b[3J");
             Console.Clear();
             MenuInterface.TasklistHeader("Edit Task", ConsoleColor.Gray); // Provide title and color
             Taskmanager.DisplayTasks(tasklist, "Current Tasks");
@@ -459,7 +460,7 @@ namespace ToDoDonelyApp
                 MenuInterface.Date();
                 Console.Write(") or press [");
                 MenuInterface.Enter();
-                Console.WriteLine("] to skip:".PadRight(consoleWidth - 51));
+                Console.WriteLine("] to skip:".PadRight(consoleWidth - 53));
 
                 MenuInterface.Exit();
                 MenuInterface.PointToInput();
@@ -495,7 +496,7 @@ namespace ToDoDonelyApp
                 MenuInterface.Date();
                 Console.Write(") or press [");
                 MenuInterface.Enter();
-                Console.WriteLine("] to keep current Due Date".PadRight(consoleWidth - 46));
+                Console.WriteLine("] to keep current Due Date".PadRight(consoleWidth - 48));
                 MenuInterface.Spacer();
                 Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
