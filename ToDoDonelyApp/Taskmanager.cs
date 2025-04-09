@@ -50,8 +50,8 @@ namespace ToDoDonelyApp
                         titleColor = ConsoleColor.Yellow;
                         break;
                     case "4":
+                        Console.Write("\x1b[3J");
                         Console.Clear();
-                        Console.SetCursorPosition(0, 0);
                         MenuInterface.MenuHeader();
                         Console.BackgroundColor = ConsoleColor.DarkMagenta;
                         Console.ForegroundColor = ConsoleColor.Yellow;

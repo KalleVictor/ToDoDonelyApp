@@ -387,9 +387,8 @@ namespace ToDoDonelyApp
         // Edit a Task/Project in the tasklist
         private static void EditTaskDetails(Project task, List<Project> tasklist)
         {
-            while (true)
-            {
                 int consoleWidth = Console.WindowWidth;
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -420,6 +419,7 @@ namespace ToDoDonelyApp
                         break;
                 }
 
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -435,6 +435,7 @@ namespace ToDoDonelyApp
                 switch (newTaskDescription)
                 {
                     case "4":
+                        Console.Write("\x1b[3J");
                         Console.Clear();
                         return;
                     case "":
@@ -448,6 +449,7 @@ namespace ToDoDonelyApp
                         break;
                 }
 
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -485,6 +487,7 @@ namespace ToDoDonelyApp
                         break;
                 }
 
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -535,6 +538,7 @@ namespace ToDoDonelyApp
                         break;
                 }
 
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -564,6 +568,7 @@ namespace ToDoDonelyApp
                     };
                 task.ProjectStatus = projectstatus;
 
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.MenuHeader();
                 MenuInterface.TableColor();
@@ -573,7 +578,7 @@ namespace ToDoDonelyApp
                 Console.ResetColor(); // Reset color to default
                 DisplaySingleTask(task);
             }
-        }
+
 
         //Error invalid Date
         public static void ErrorDate()
