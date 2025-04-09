@@ -26,6 +26,7 @@ namespace ToDoDonelyApp
 
             while (!exit)
             {
+                Console.Write("\x1b[3J");
                 Console.Clear();
                 MenuInterface.TasklistHeader(sortTitle, titleColor);
                 DisplayTasks(tasklist, sortTitle);
